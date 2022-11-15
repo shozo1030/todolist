@@ -36,6 +36,11 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             this.$emit("itemchanged");
+            this.$toast.show("削除しました", {
+                type: "error",
+                position: "bottom",
+                duration: 500,
+            })
           }
         })
         .catch((error) => {

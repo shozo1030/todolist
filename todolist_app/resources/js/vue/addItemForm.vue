@@ -69,8 +69,13 @@ export default {
         .then((response) =>{
           if(response.status == 200) {
               this.flag = true;
-              alert('編集完了')
-              window.location.reload();
+              this.$toast.show("編集完了！", {
+                type: "success",
+                position: "bottom",
+                duration: 1000,
+                //dismissible: true
+              })
+              setTimeout(() =>{window.location.reload();}, 1000);
             }
           })
         .catch((error) => {
