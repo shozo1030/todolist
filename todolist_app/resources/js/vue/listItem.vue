@@ -7,6 +7,9 @@
     <button @click="removeItem()" class="trashcan">
       <font-awesome-icon icon="trash" />
     </button>
+    <button @click="editItem()" class="pencil">
+      <font-awesome-icon icon="pencil" />
+    </button>
   </div>
 </template>
 <script>
@@ -39,6 +42,10 @@ export default {
           console.log(error);
         });
     },
+
+    editItem() {
+      this.$emit('custom-click', this.item.name);
+    }
   },
 };
 </script>
@@ -61,6 +68,12 @@ export default {
   background: #e6e6e6;
   border: none;
   color: #ff0000;
+  outline: none;
+}
+.pencil {
+  background: #e6e6e6;
+  border: none;
+  color: #1df548;
   outline: none;
 }
 </style>

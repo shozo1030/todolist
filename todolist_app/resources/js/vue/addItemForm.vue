@@ -1,20 +1,45 @@
 <template>
   <div class="addItem">
-    <input type="text" v-model="item.name" />
-    <font-awesome-icon
+    <input type="text" v-model="item.name" ref="focusInput"/>
+    <div v-if="flag">
+      <font-awesome-icon
       icon="plus-square"
       @click="addItem()"
       :class="[item.name ? 'active' : 'inactive', 'plus']"
-    />
+      />
+    </div>
+    <div v-else>
+      <font-awesome-icon
+      icon="edit"
+      @click="editData()"
+      :class="[item.name ? 'active' : 'inactive', 'plus']"
+      />
+    </div>
   </div>
 </template>
 <script>
 export default {
+  props: {
+    editItem: {
+      type: Object,
+      default() {
+        return null;
+      }
+    },
+  },
+  watch: {
+    editItem(newItem) {
+      this.item = newItem;
+      this.$refs.focusInput.focus();
+      this.flag = false;
+    }
+  },
   data: function () {
     return {
       item: {
         name: "",
       },
+      flag: true
     };
   },
   methods: {
@@ -36,6 +61,33 @@ export default {
           console.log(error);
         });
     },
+    editData(){
+      axios
+        .put("api/item/" + this.item.id, {
+          item: this.item,
+        })
+        .then((response) =>{
+          if(response.status == 200) {
+              this.flag = true;
+              alert('編集完了')
+              window.location.reload();
+            }
+          })
+        .catch((error) => {
+          console.log(error);
+        })
+    },
+    getList() {
+      axios
+        .get("api/items")
+        .then((response) => {
+          this.items = response.data;
+          console.log(this.items);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   },
 };
 </script>

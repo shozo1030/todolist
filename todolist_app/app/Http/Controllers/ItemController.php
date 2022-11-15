@@ -79,6 +79,7 @@ class ItemController extends Controller
         if ($existingItem) {
             $existingItem->completed = $request->item['completed'] ? true : false;
             $existingItem->completed_at = $request->item['completed'] ? Carbon::now() : null;
+            $existingItem->name = $request->item['name'];
             $existingItem->save();
             return $existingItem;
         }

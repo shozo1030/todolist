@@ -5,6 +5,7 @@
         :item="item"
         class="item"
         v-on:itemchanged="$emit('reloadlist')"
+        @custom-click="$emit('custom-click', $event)"
       />
     </div>
   </div>

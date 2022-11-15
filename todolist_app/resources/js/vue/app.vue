@@ -2,9 +2,9 @@
   <div class="todoListContainer">
     <div class="heading">
       <h2 id="title">TodoList</h2>
-      <add-item-form v-on:reloadlist="getList()" />
+      <add-item-form v-on:reloadlist="getList()" :editItem="editItem"  />
     </div>
-    <list-view :items="items" v-on:reloadlist="getList()" />
+    <list-view :items="items" v-on:reloadlist="getList()" @custom-click="edit"/>
   </div>
 </template>
 <script>
@@ -18,6 +18,7 @@ export default {
   data: function () {
     return {
       items: [],
+      editItem: null
     };
   },
   methods: {
@@ -32,6 +33,9 @@ export default {
           console.log(error);
         });
     },
+    edit(edit) {
+    this.editItem = this.items.find(i => i.name === edit);
+  }
   },
   created() {
     this.getList();
