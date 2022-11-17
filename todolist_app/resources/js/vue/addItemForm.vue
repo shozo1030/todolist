@@ -8,11 +8,16 @@
       :class="[item.name ? 'active' : 'inactive', 'plus']"
       />
     </div>
-    <div v-else>
+    <div class="aiconlist" v-else>
       <font-awesome-icon
       icon="edit"
       @click="editData()"
       :class="[item.name ? 'active' : 'inactive', 'plus']"
+      />
+      <font-awesome-icon
+      icon="window-close"
+      @click="editCancel()"
+      class="close"
       />
     </div>
   </div>
@@ -82,6 +87,9 @@ export default {
           console.log(error);
         })
     },
+    editCancel() {
+      setTimeout(() =>{window.location.reload();}, 500);
+    },
     getList() {
       axios
         .get("api/items")
@@ -123,5 +131,16 @@ input {
 
 .inactive {
   color: #999999;
+}
+
+.close {
+  color: rgb(42, 39, 53);
+  font-size: 1.37em;
+
+}
+.aiconlist {
+  display: flex;
+  justify-content: space-between;
+  width: 18%;
 }
 </style>
